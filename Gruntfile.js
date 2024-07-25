@@ -205,8 +205,7 @@ module.exports = function (grunt) {
             "copy:demo",
             "replace:demo",
             "copy:dist",
-            // 暂时不压缩
-            // "uglify:files",
+            "uglify:files",
             "cssmin:files",
             "clean"
         ];
