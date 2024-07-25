@@ -34,12 +34,12 @@ UE.plugin.register("simpleupload", function () {
             }
 
             var loadingId = UE.dialog.loadingPlaceholder(me);
-
-            if (!me.getOpt("imageActionName")) {
-                UE.dialog.removeLoadingPlaceholder(me, loadingId);
-                UE.dialog.tipError(me, me.getLang("autoupload.errorLoadConfig"));
-                return;
-            }
+            // 不需要走配置
+            // if (!me.getOpt("imageActionName")) {
+            //     UE.dialog.removeLoadingPlaceholder(me, loadingId);
+            //     UE.dialog.tipError(me, me.getLang("autoupload.errorLoadConfig"));
+            //     return;
+            // }
 
             var allowFiles = me.getOpt("imageAllowFiles");
             var filename = input.value, fileext = filename ? filename.substr(filename.lastIndexOf(".")) : "";
@@ -59,24 +59,50 @@ UE.plugin.register("simpleupload", function () {
                 UE.api.requestAction(me, me.getOpt("imageActionName"), {
                     data: formData
                 }).then(function (res) {
-                    var resData = me.getOpt('serverResponsePrepare')( res.data )
-                    if ('SUCCESS' === resData.state && resData.url) {
-                        const loader = me.document.getElementById(loadingId);
-                        domUtils.removeClasses(loader, "uep-loading");
-                        const link = me.options.imageUrlPrefix + resData.url;
-                        loader.setAttribute("src", link);
-                        loader.setAttribute("_src", link);
-                        loader.setAttribute("alt", resData.original || "");
-                        loader.removeAttribute("id");
-                        me.fireEvent("contentchange");
-                        // 触发上传图片事件
-                        me.fireEvent("uploadsuccess", {
-                            res: resData,
-                            type: 'image'
-                        });
+                    // var resData = me.getOpt('serverResponsePrepare')( res.data )
+                    // if ('SUCCESS' === resData.state && resData.url) {
+                    //     const loader = me.document.getElementById(loadingId);
+                    //     domUtils.removeClasses(loader, "uep-loading");
+                    //     const link = me.options.imageUrlPrefix + resData.url;
+                    //     loader.setAttribute("src", link);
+                    //     loader.setAttribute("_src", link);
+                    //     loader.setAttribute("alt", resData.original || "");
+                    //     loader.removeAttribute("id");
+                    //     me.fireEvent("contentchange");
+                    //     // 触发上传图片事件
+                    //     me.fireEvent("uploadsuccess", {
+                    //         res: resData,
+                    //         type: 'image'
+                    //     });
+                    // } else {
+                    //     UE.dialog.removeLoadingPlaceholder(me, loadingId);
+                    //     UE.dialog.tipError(me, resData.state);
+                    // }
+
+                    if(res.status == 200) {
+                        const {code, data, message} = res.data;
+                        if(code == 0) {
+                            const loader = me.document.getElementById(loadingId);
+                            domUtils.removeClasses(loader, "uep-loading");
+                            // const link = me.options.imageUrlPrefix + resData.url;
+                            const link = data;
+                            loader.setAttribute("src", link);
+                            loader.setAttribute("_src", link);
+                            // loader.setAttribute("alt", resData.original || "");
+                            loader.removeAttribute("id");
+                            me.fireEvent("contentchange");
+                            // 触发上传图片事件
+                            me.fireEvent("uploadsuccess", {
+                                res: {url: link, original: ''},
+                                type: 'image'
+                            });
+                        } else {
+                            UE.dialog.removeLoadingPlaceholder(me, loadingId);
+                            UE.dialog.tipError(me, message);
+                        }
                     } else {
                         UE.dialog.removeLoadingPlaceholder(me, loadingId);
-                        UE.dialog.tipError(me, resData.state);
+                        UE.dialog.tipError(me, res.statusText);
                     }
                 }).catch(function (err) {
                     UE.dialog.removeLoadingPlaceholder(me, loadingId);
@@ -84,10 +110,15 @@ UE.plugin.register("simpleupload", function () {
                 });
             };
             var file = input.files[0];
-            // console.log('file',file);
-            var imageCompressEnable = me.getOpt('imageCompressEnable'),
-                imageMaxSize = me.getOpt('imageMaxSize'),
-                imageCompressBorder = me.getOpt('imageCompressBorder');
+            /**
+             * imageCompressEnable: 是否压缩图片,默认 true
+             * imageMaxSize: 上传大小限制,默认 5MB
+             * imageCompressBorder: 设置图片的最大边界,默认 1600，如果上传的图片宽或高超过这个值，图片将被压缩到这个值以内
+             * 举例：设置为 1600px，上传了一张 4000x3000px 的图片。此时图片将被压缩，使得长边为 1600px，短边按比例缩小。压缩后的图片尺寸大约为 1600x1200px。
+             */
+            var imageCompressEnable = me.getOpt('imageCompressEnable') || true,
+                imageMaxSize = me.getOpt('imageMaxSize') || 5 * 1024 * 1024,
+                imageCompressBorder = me.getOpt('imageCompressBorder') || 1600;
             if (imageCompressEnable) {
                 UE.image.compress(file, {
                     maxSizeMB: imageMaxSize / 1024 / 1024,

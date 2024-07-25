@@ -1,6 +1,10 @@
 (function () {
     UE.Editor.prototype.loadServerConfig = function () {
         var me = this;
+        // 上传图片不从后端接口读取配置
+        me.fireEvent("serverConfigLoaded");
+        me._serverConfigLoaded = true;
+        return;
         setTimeout(function () {
             try {
                 me.options.imageUrl &&
