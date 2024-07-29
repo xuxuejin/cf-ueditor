@@ -92,6 +92,7 @@ UE.I18N['en'] = {
         'template': 'Template',
         'background': 'Background',
         'inserttable': 'InsertTable',
+        'booktag': 'InsertBooktag'
     },
     'autosave': {
         'autoRestoreTip': 'Has been recovered from draft'
@@ -328,7 +329,8 @@ UE.I18N['en'] = {
     //===============dialog i18N=======================
     'insertimage': {
         'static': {
-            'lang_tab_remote': "Insert",
+            // 'lang_tab_remote': "Insert",
+            'lang_tab_remote': "Edit",
             'lang_tab_upload': "Local",
             'lang_tab_online': "Manager",
             'lang_tab_search': "Search",
@@ -339,6 +341,8 @@ UE.I18N['en'] = {
             'lang_input_border': "Border:",
             'lang_input_vhspace': "Margins:",
             'lang_input_title': "Title:",
+            'lang_input_link': "URL：",
+            'lang_input_target': "open in new window：",
             'lang_input_align': 'Image Float Style:',
             'lang_imgLoading': "Loading...",
             'lang_start_upload': "Start Upload",

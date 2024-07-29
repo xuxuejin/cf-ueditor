@@ -761,6 +761,7 @@ UE.plugins["table"] = function () {
         });
 
         //重写execCommand命令，用于处理框选时的处理
+        // xxj 处理插入链接的颜色
         var oldExecCommand = me.execCommand;
         me.execCommand = function (cmd, datatat) {
             var me = this,

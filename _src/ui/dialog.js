@@ -135,12 +135,14 @@
         },
         fitSize: function () {
             // console.log('fitSize.dialog')
+            // 获取的 popBodyEl 就有差别 xxj 所以导致宽度有问题
             var popBodyEl = this.getDom("body");
             var $foot = popBodyEl.querySelector('.edui-dialog-foot');
             var heightWithoutBody = 70;
             if (!$foot) {
                 heightWithoutBody = 30;
             }
+            // 书签弹框很小，就是因为 size 计算的宽度有问题 xxj
             var size = this.mesureSize();
             var winSize = uiUtils.getViewportRect();
             var width = size.width;

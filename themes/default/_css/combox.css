@@ -31,6 +31,7 @@
 }
 
 .edui-default .edui-toolbar .edui-combox .edui-combox-body > div {
+    text-align: center;
     vertical-align: top;
 }
 

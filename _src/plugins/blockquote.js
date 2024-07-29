@@ -40,6 +40,7 @@ UE.plugins["blockquote"] = function () {
     }
 
     me.commands["blockquote"] = {
+        // xxj 给 blockquote 设定行内样式
         execCommand: function (cmdName, attrs) {
             var range = this.selection.getRange(),
                 obj = getObj(this),

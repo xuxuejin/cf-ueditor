@@ -80,7 +80,14 @@
                         editor.getLang("labelMap." + cmd) ||
                         "",
                     onclick: function () {
-                        editor.execCommand(cmd);
+                        switch(cmd) {
+                            // xxj 引用类型 添加自定义属性，前面的颜色改成配置中的主题色
+                            case 'blockquote':
+                                editor.execCommand(cmd, {style: `padding-left: 10px; border-left: 5px solid ${editor.ui.themeColor};`});
+                            return;
+                            default:
+                                editor.execCommand(cmd);
+                        }
                     },
                     theme: editor.options.theme,
                     showText: false
@@ -289,6 +296,8 @@
         template: "~/dialogs/template/template.html?{timestamp}",
         background: "~/dialogs/background/background.html?{timestamp}",
         contentimport: "~/dialogs/contentimport/contentimport.html?{timestamp}",
+        // 书签弹出框
+        booktag: "~/dialogs/booktag/booktag.html?{timestamp}",
     };
     var dialogBtns = {
         noOk: ["searchreplace", "help", "spechars", "preview"],
@@ -309,6 +318,7 @@
             "formula",
             "background",
             "contentimport",
+            "booktag"
         ]
     };
     for (var p in dialogBtns) {
@@ -375,6 +385,7 @@
                             className: "edui-for-" + cmd,
                             title: title,
                             onclick: function () {
+                                // 工具栏按钮事件是在这里注册的 xxj
                                 if (editor.options.toolbarCallback) {
                                     if (true === editor.options.toolbarCallback(cmd, editor)) {
                                         return;

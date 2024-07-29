@@ -93,6 +93,7 @@ UE.I18N['zh-cn'] = {
         'template': '模板',
         'scrawl': '涂鸦',
         'inserttable': '插入表格',
+        'booktag': '插入书签'
     },
     'autosave': {
         'autoRestoreTip': '已自动从草稿箱恢复'
@@ -321,7 +322,8 @@ UE.I18N['zh-cn'] = {
     //===============dialog i18N=======================
     'insertimage': {
         'static': {
-            'lang_tab_remote': "插入图片", //节点
+            // 'lang_tab_remote': "插入图片", //节点
+            'lang_tab_remote': "编辑图片", //节点
             'lang_tab_upload': "本地上传",
             'lang_tab_online': "在线管理",
             'lang_input_url': "地 址：",
@@ -331,6 +333,8 @@ UE.I18N['zh-cn'] = {
             'lang_input_border': "边 框：",
             'lang_input_vhspace': "边 距：",
             'lang_input_title': "描 述：",
+            'lang_input_link': "链接：",
+            'lang_input_target': "新窗口打开：",
             'lang_input_align': '图片浮动方式：',
             'lang_imgLoading': "　图片加载中……",
             'lang_start_upload': "开始上传",

@@ -20,6 +20,7 @@
             this._globalKey = utils.unhtml(uiUtils.setGlobal(this.id, this));
         },
         render: function (holder) {
+            // xxj 工具栏弹框的 ui 渲染是在这边处理
             var html = this.renderHtml();
             var el = uiUtils.createElementByHtml(html);
 

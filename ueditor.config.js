@@ -56,7 +56,7 @@
         debug: false,
 
         // 服务器统一请求接口路径
-        serverUrl: "/ueditor-plus/_demo_server/handle.php",
+        serverUrl: "",
         // 服务器统一请求头信息，会在所有请求中带上该信息
         serverHeaders: {
             // 'Authorization': 'Bearer xxx'
@@ -252,7 +252,7 @@
         }
 
         // 自动保存
-        , autoSaveEnable: true
+        , autoSaveEnable: false
         // 浏览器初始化时自动恢复上一次的内容
         , autoSaveRestore: false
         // 自动保存Key，为空时根据网址自动计算
@@ -494,11 +494,11 @@
         ]
 
         // 是否启用元素路径，默认是显示
-        , elementPathEnabled: true
+        , elementPathEnabled: false
         // 是否开启字数统计
-        , wordCount: true
+        , wordCount: false
         // 允许的最大字符数
-        , maximumWords: 10000
+        , maximumWords: Infinity
         //字数统计提示，{#count} 代表当前字数，{#leave}代表还可以输入多少字符数,留空支持多语言自动切换，否则按此配置显示
         //,wordCountMsg:''   //当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符
         //超出字数限制提示  留空支持多语言自动切换，否则按此配置显示
@@ -519,7 +519,7 @@
         , maxInputCount: 1
 
         // 是否自动长高,默认true
-        , autoHeightEnabled: true
+        , autoHeightEnabled: false
 
         //scaleEnabled
         //是否可以拉伸长高,默认true(当开启时，自动长高失效)
@@ -529,14 +529,14 @@
 
         //autoFloatEnabled
         //是否保持toolbar的位置不动,默认true
-        //,autoFloatEnabled:true
+        ,autoFloatEnabled:true
         //浮动时工具栏距离浏览器顶部的高度，用于某些具有固定头部的页面
         //,topOffset:30
         //编辑器底部距离工具栏高度(如果参数大于等于编辑器高度，则设置无效)
         //,toolbarTopOffset:400
 
         //设置远程图片是否抓取到本地保存
-        , catchRemoteImageEnable: true //设置是否抓取远程图片
+        , catchRemoteImageEnable: false //设置是否抓取远程图片
 
         //pageBreakTag
         //分页标识符,默认是_ueditor_page_break_tag_
@@ -603,9 +603,9 @@
         // 允许进入编辑器的 div 标签自动变成 p 标签
         , allowDivTransToP: true
         // 默认产出的数据中的color自动从rgb格式变成16进制格式
-        , rgb2Hex: true,
-
-        tipError: function(msg, param){
+        , rgb2Hex: true
+        , themeColor: ''
+        , tipError: function(msg, param){
             if( window && window.MS && window.MS.dialog ){
                 window.MS.dialog.tipError( msg );
             }else{

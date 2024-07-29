@@ -27,12 +27,12 @@
                 setTabFocus(target.getAttribute('data-content-id'));
             });
         }
-        if (!editorOpt.disableUpload) {
-            $G('tabhead').querySelector('[data-content-id="upload"]').style.display = 'inline-block';
-        }
-        if (!editorOpt.disableOnline) {
-            $G('tabhead').querySelector('[data-content-id="online"]').style.display = 'inline-block';
-        }
+        // if (!editorOpt.disableUpload) {
+        //     $G('tabhead').querySelector('[data-content-id="upload"]') && $G('tabhead').querySelector('[data-content-id="upload"]').style.display = 'inline-block';
+        // }
+        // if (!editorOpt.disableOnline) {
+        //     $G('tabhead').querySelector('[data-content-id="online"]') && $G('tabhead').querySelector('[data-content-id="online"]').style.display = 'inline-block';
+        // }
         if (!!editorOpt.selectCallback) {
             $G('imageSelect').style.display = 'inline-block';
             domUtils.on($G('imageSelect'), "click", function (e) {
@@ -398,15 +398,17 @@
                 })(),
                 // WebUploader实例
                 uploader,
-                actionUrl = editor.getActionUrl(editor.getOpt('imageActionName')),
+                // actionUrl = editor.getActionUrl(editor.getOpt('imageActionName')),
+                actionUrl = editor.getOpt('serverUrl'),
                 acceptExtensions = (editor.getOpt('imageAllowFiles') || []).join('').replace(/\./g, ',').replace(/^[,]/, ''),
+                // 默认大小是 B
                 imageMaxSize = editor.getOpt('imageMaxSize'),
                 imageCompressBorder = editor.getOpt('imageCompressBorder');
 
             if (!WebUploader.Uploader.support()) {
                 $('#filePickerReady').after($('<div>').html(lang.errorNotSupport)).hide();
                 return;
-            } else if (!editor.getOpt('imageActionName')) {
+            } else if (!actionUrl) {
                 $('#filePickerReady').after($('<div>').html(lang.errorLoadConfig)).hide();
                 return;
             }

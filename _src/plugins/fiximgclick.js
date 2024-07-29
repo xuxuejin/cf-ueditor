@@ -380,6 +380,8 @@ UE.plugins["fiximgclick"] = (function () {
 
         if (browser.webkit) {
             me.addListener("click", function (type, e) {
+                // xxj 插入自定义 html 片段，如果有图片，且 contentEditable 设为 false 的情况，点击图片禁止出现图片编辑的相关操作
+                if(e.target.contentEditable == "false") return;
                 if (e.target.tagName === "IMG" && me.body.contentEditable !== "false") {
                     var range = new dom.Range(me.document);
                     range.selectNode(e.target).select();

@@ -57,6 +57,7 @@ var htmlparser = (UE.htmlparser = function (htmlstr, ignoreBlank) {
         br: 1,
         pre: 1
     };
+    // xxj 开始处理 html 字符串
     htmlstr = htmlstr.replace(new RegExp(domUtils.fillChar, "g"), "");
     if (!ignoreBlank) {
         htmlstr = htmlstr.replace(

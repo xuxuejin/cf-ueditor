@@ -115,7 +115,7 @@
 #remote .left {
     display: block;
     float: left;
-    width: 300px;
+    width: 330px;
     height: 10px;
 }
 
@@ -134,7 +134,7 @@
 
 #remote .row label {
     text-align: center;
-    width: 50px;
+    width: 72px;
     zoom: 1;
     _display: inline;
     display: inline-block;
