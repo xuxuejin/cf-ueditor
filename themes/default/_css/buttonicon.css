@@ -402,3 +402,7 @@
 .edui-default .edui-for-simpleupload .edui-icon:before {
     content: "\edfc";
 }
+
+.edui-default .edui-for-booktag .edui-icon:before {
+    content: "\e800";
+}

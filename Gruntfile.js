@@ -6,7 +6,7 @@ module.exports = function (grunt) {
             jsBasePath: "_src/",
             parseBasePath: "_parse/",
             cssBasePath: "themes/default/_css/",
-
+            // 读取指定文件，提取其中包含的 JavaScript 文件路径，并返回这些路径
             fetchScripts: function (readFile, basePath) {
                 var sources = fs.readFileSync(readFile);
                 sources = /\[([^\]]+\.js'[^\]]+)\]/.exec(sources);
@@ -19,7 +19,7 @@ module.exports = function (grunt) {
                 });
                 return sources;
             },
-
+            // 读取 ueditor.css 文件中的 @import 语句，提取其中包含的 CSS 文件路径，并返回这些路径
             fetchStyles: function () {
                 var sources = fs.readFileSync(this.cssBasePath + "ueditor.css"),
                     filepath = null,
@@ -187,6 +187,29 @@ module.exports = function (grunt) {
                     distDir + "**/.git"
                 ]
             }
+        },
+        less: {
+            development: {
+                options: {
+                    compress: true,
+                    yuicompress: true,
+                    optimization: 2
+                },
+                files: {
+                    "themes/default/_css/uibase.css": "themes/default/_css/uibase.less" // destination file and source file
+                }
+            }
+        },
+        base64: {
+            options: {
+                baseDir: 'themes/', // Base directory
+                extensions: ['woff', 'ttf', 'woff2'], // File extensions to process
+                maxImageSize: 8*1024, // Maximum size in bytes to embed files (8KB in this example)
+                deleteAfterEncoding: false, // Do not delete files after encoding
+            },
+            files: {
+                'themes/default/_css/uibase_2.css': 'themes/default/_css/uibase_2.css' // destination file and source file
+            }
         }
     });
 
@@ -197,9 +220,15 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-transcoding");
     grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-base64');
 
     grunt.registerTask("default", "UEditor build", function () {
         var tasks = [
+            // 先转换 uibase.less 文件为 css
+            'less',
+            // 把转换后的 css 文件中的资源引用转换成 base64 
+            'base64',
             "concat",
             "copy:base",
             "copy:demo",
@@ -207,7 +236,7 @@ module.exports = function (grunt) {
             "copy:dist",
             "uglify:files",
             "cssmin:files",
-            "clean"
+            "clean",
         ];
 
         tasks.push("transcoding");

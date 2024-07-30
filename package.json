@@ -34,6 +34,8 @@
     },
     "devDependencies": {
         "grunt": "~0.4.1",
+        "grunt-base64": "^0.1.0",
+        "grunt-contrib-less": "^3.0.0",
         "uglify-js": "^3.17.4"
     }
 }
