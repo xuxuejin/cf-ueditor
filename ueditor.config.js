@@ -307,7 +307,7 @@
         , indentValue: '2em'
 
         // 初始化编辑器宽度,默认 1000
-        // ,initialFrameWidth:1000
+        ,initialFrameWidth: '100%'
         // 初始化编辑器高度,默认 320
         // ,initialFrameHeight:320
 
