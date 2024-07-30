@@ -111,14 +111,15 @@ UE.plugin.register("simpleupload", function () {
             };
             var file = input.files[0];
             /**
+             * xxj
              * imageCompressEnable: 是否压缩图片,默认 true
              * imageMaxSize: 上传大小限制,默认 5MB
              * imageCompressBorder: 设置图片的最大边界,默认 1600，如果上传的图片宽或高超过这个值，图片将被压缩到这个值以内
              * 举例：设置为 1600px，上传了一张 4000x3000px 的图片。此时图片将被压缩，使得长边为 1600px，短边按比例缩小。压缩后的图片尺寸大约为 1600x1200px。
              */
             var imageCompressEnable = me.getOpt('imageCompressEnable') || true,
-                imageMaxSize = me.getOpt('imageMaxSize') || 5 * 1024 * 1024,
-                imageCompressBorder = me.getOpt('imageCompressBorder') || 1600;
+                imageMaxSize = me.getOpt('imageMaxSize') || 10 * 1024 * 1024,
+                imageCompressBorder = me.getOpt('imageCompressBorder') || 656;
             if (imageCompressEnable) {
                 UE.image.compress(file, {
                     maxSizeMB: imageMaxSize / 1024 / 1024,

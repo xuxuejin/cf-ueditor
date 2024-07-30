@@ -1,7 +1,12 @@
 (function () {
     UE.Editor.prototype.loadServerConfig = function () {
         var me = this;
-        // 上传图片不从后端接口读取配置
+        // xxj 上传图片不从后端接口读取配置
+        me.options = utils.merge(me.options, {
+            imageFieldName: "file",
+            imageMaxSize: 10 * 1024 * 1024,
+            imageAllowFiles: [".png", ".jpg", ".jpeg", ".gif", ".bmp"]
+        })
         me.fireEvent("serverConfigLoaded");
         me._serverConfigLoaded = true;
         return;
