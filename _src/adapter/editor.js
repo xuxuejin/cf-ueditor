@@ -124,9 +124,9 @@
                                 }),
                                 range = editor.selection.getRange();
                             range.insertNode(span);
-                            var tmp = getDomNode(span, "firstChild", "previousSibling");
-                            tmp &&
-                            pastePop.showAnchor(tmp.nodeType == 3 ? tmp.parentNode : tmp);
+                            // xxj 粘贴成功后 不显示粘贴格式的提示
+                            // var tmp = getDomNode(span, "firstChild", "previousSibling");
+                            // tmp && pastePop.showAnchor(tmp.nodeType == 3 ? tmp.parentNode : tmp);
                             domUtils.remove(span);
                         } else {
                             pastePop.show();
@@ -616,6 +616,7 @@
                     "px;height:" +
                     vpRect.height +
                     "px;z-index:" +
+                    // xxj 处理全屏模式下层级不够 
                     (this.getDom().style.zIndex * 1 + 100);
                 uiUtils.setViewportOffset(this.getDom(), {
                     left: 0,

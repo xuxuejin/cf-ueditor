@@ -267,10 +267,11 @@ UE.commands["inserthtml"] = {
 
         setTimeout(function () {
             range = me.selection.getRange();
-            range.scrollToView(
-                me.autoHeightEnabled,
-                me.autoHeightEnabled ? domUtils.getXY(me.iframe).y : 0
-            );
+            // xxj 禁止自动滚动 view，不然粘贴代码会滚动
+            // range.scrollToView(
+            //     me.autoHeightEnabled,
+            //     me.autoHeightEnabled ? domUtils.getXY(me.iframe).y : 0
+            // );
             me.fireEvent("afterinserthtml", html);
         }, 200);
     }
