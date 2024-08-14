@@ -83,7 +83,7 @@
                         switch(cmd) {
                             // xxj 引用类型 添加自定义属性，前面的颜色改成配置中的主题色
                             case 'blockquote':
-                                editor.execCommand(cmd, {style: `padding-left: 10px; border-left: 5px solid ${editor.ui.themeColor};`});
+                                editor.execCommand(cmd, {style: `padding-left: 10px; margin: 0; border-left: 5px solid ${editor.ui.themeColor};`});
                             return;
                             default:
                                 editor.execCommand(cmd);

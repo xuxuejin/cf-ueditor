@@ -616,8 +616,8 @@
                     "px;height:" +
                     vpRect.height +
                     "px;z-index:" +
-                    // xxj 处理全屏模式下层级不够 
-                    (this.getDom().style.zIndex * 1 + 100);
+                    // xxj 处理全屏模式下层级不够 1000
+                    (this.getDom().style.zIndex * 1 + 1000);
                 uiUtils.setViewportOffset(this.getDom(), {
                     left: 0,
                     // top: this.editor.options.topOffset || 0

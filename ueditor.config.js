@@ -441,7 +441,7 @@
         //]
 
         // 打开右键菜单功能
-        , enableContextMenu: true
+        , enableContextMenu: false
         //右键菜单的内容，可以参考plugins/contextmenu.js里边的默认菜单的例子，label留空支持国际化，否则以此配置为准
         //,contextMenu:[
         //    {
@@ -472,7 +472,7 @@
             "imagecenter",
             "imageright",
             "insertimage",
-            "formula",
+            // "formula",
             // "justifyleft",    // 居左对齐
             // "justifycenter",  // 居中对齐
             // "justifyright",   // 居右对齐
