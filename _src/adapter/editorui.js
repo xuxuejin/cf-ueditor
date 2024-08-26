@@ -80,14 +80,15 @@
                         editor.getLang("labelMap." + cmd) ||
                         "",
                     onclick: function () {
-                        switch(cmd) {
-                            // xxj 引用类型 添加自定义属性，前面的颜色改成配置中的主题色
-                            case 'blockquote':
-                                editor.execCommand(cmd, {style: `padding-left: 10px; margin: 0; border-left: 5px solid ${editor.ui.themeColor};`});
-                            return;
-                            default:
-                                editor.execCommand(cmd);
-                        }
+                        // switch(cmd) {
+                        //     // xxj 引用类型 添加自定义属性，前面的颜色改成配置中的主题色 算了 不改了 在外边用样式控制吧
+                        //     case 'blockquote':
+                        //         editor.execCommand(cmd, {style: `padding-left: 10px; margin: 0; border-left: 5px solid ${editor.ui.themeColor};`});
+                        //     return;
+                        //     default:
+                        //         editor.execCommand(cmd);
+                        // }
+                        editor.execCommand(cmd);
                     },
                     theme: editor.options.theme,
                     showText: false
