@@ -33,6 +33,8 @@ UE.plugin.register("simpleupload", function () {
                 return;
             }
 
+            var file = input.files[0];
+
             var loadingId = UE.dialog.loadingPlaceholder(me);
             // 不需要走配置
             // if (!me.getOpt("imageActionName")) {
@@ -50,6 +52,13 @@ UE.plugin.register("simpleupload", function () {
             ) {
                 UE.dialog.removeLoadingPlaceholder(me, loadingId);
                 UE.dialog.tipError(me, me.getLang("autoupload.exceedTypeError"));
+                return;
+            }
+
+            // 限制图片大小 xxj
+            if (file.size > me.getOpt('imageMaxSize')) {
+                UE.dialog.removeLoadingPlaceholder(me, loadingId);
+                UE.dialog.tipError(me, me.getLang("autoupload.exceedSizeError"));
                 return;
             }
 
@@ -86,6 +95,8 @@ UE.plugin.register("simpleupload", function () {
                             domUtils.removeClasses(loader, "uep-loading");
                             // const link = me.options.imageUrlPrefix + resData.url;
                             const link = data;
+                            // 防止超宽的图片超出版心
+                            loader.setAttribute("style", "max-width: 100%;");
                             loader.setAttribute("src", link);
                             loader.setAttribute("_src", link);
                             // loader.setAttribute("alt", resData.original || "");
@@ -109,7 +120,9 @@ UE.plugin.register("simpleupload", function () {
                     UE.dialog.tipError(me, err);
                 });
             };
-            var file = input.files[0];
+            // 不走裁切和压缩，直接原图上传
+            upload(file);
+            // var file = input.files[0];
             /**
              * xxj
              * imageCompressEnable: 是否压缩图片,默认 true
@@ -117,25 +130,25 @@ UE.plugin.register("simpleupload", function () {
              * imageCompressBorder: 设置图片的最大边界,默认 1600，如果上传的图片宽或高超过这个值，图片将被压缩到这个值以内
              * 举例：设置为 1600px，上传了一张 4000x3000px 的图片。此时图片将被压缩，使得长边为 1600px，短边按比例缩小。压缩后的图片尺寸大约为 1600x1200px。
              */
-            var imageCompressEnable = me.getOpt('imageCompressEnable') || true,
-                imageMaxSize = me.getOpt('imageMaxSize') || 10 * 1024 * 1024,
-                imageCompressBorder = me.getOpt('imageCompressBorder') || 656;
-            if (imageCompressEnable) {
-                UE.image.compress(file, {
-                    maxSizeMB: imageMaxSize / 1024 / 1024,
-                    maxWidthOrHeight: imageCompressBorder
-                }).then(function (compressedFile) {
-                    if (me.options.debug) {
-                        console.log('SimpleUpload.CompressImage', (compressedFile.size / file.size * 100).toFixed(2) + '%');
-                    }
-                    upload(compressedFile);
-                }).catch(function (err) {
-                    console.error('SimpleUpload.CompressImage.error', err);
-                    upload(file);
-                });
-            } else {
-                upload(file);
-            }
+            // var imageCompressEnable = me.getOpt('imageCompressEnable') || true,
+            //     imageMaxSize = me.getOpt('imageMaxSize') || 10 * 1024 * 1024,
+            //     imageCompressBorder = me.getOpt('imageCompressBorder') || 656;
+            // if (imageCompressEnable) {
+            //     UE.image.compress(file, {
+            //         maxSizeMB: imageMaxSize / 1024 / 1024,
+            //         maxWidthOrHeight: imageCompressBorder
+            //     }).then(function (compressedFile) {
+            //         if (me.options.debug) {
+            //             console.log('SimpleUpload.CompressImage', (compressedFile.size / file.size * 100).toFixed(2) + '%');
+            //         }
+            //         upload(compressedFile);
+            //     }).catch(function (err) {
+            //         console.error('SimpleUpload.CompressImage.error', err);
+            //         upload(file);
+            //     });
+            // } else {
+            //     upload(file);
+            // }
         });
 
         var stateTimer;

@@ -187,7 +187,8 @@
             //     return true;
             // }
         }
-
+        // 图片限制大小了，不压缩，压缩会导致图片不清晰
+        , imageCompressEnable: false
         // 插入图片自定义配置
         , imageConfig: {
             // 禁止本地上传
@@ -340,7 +341,9 @@
         //,retainOnlyLabelPasted: false
 
         // 是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
-        //,pasteplain:false
+        // 默认开启纯文本，不然粘贴会出多很多带样式的 span 标签，而且在其他文本编辑器里粘贴过来不换行，导致编辑器有滚动条，
+        // 而且，这种带样式的 span 标签，在某处回车后再敲 backspce 回来，文字大小就会改变 xxj
+        ,pasteplain: true
         // 纯文本粘贴模式下的过滤规则
         //'filterTxtRules' : function(){
         //    function transP(node){

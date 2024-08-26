@@ -2,11 +2,13 @@
     UE.Editor.prototype.loadServerConfig = function () {
         var me = this;
         // xxj 上传图片不从后端接口读取配置
-        me.options = utils.merge(me.options, {
+        me.options = utils.merge({
             imageFieldName: "file",
-            imageMaxSize: 10 * 1024 * 1024,
-            imageAllowFiles: [".png", ".jpg", ".jpeg", ".gif", ".bmp"]
-        })
+            // 限制图片大小为 500KB
+            imageMaxSize: 500 * 1024,
+            // 增加 webp 格式
+            imageAllowFiles: [".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp"]
+        }, me.options)
         me.fireEvent("serverConfigLoaded");
         me._serverConfigLoaded = true;
         return;
