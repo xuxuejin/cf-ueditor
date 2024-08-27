@@ -445,7 +445,7 @@
                     //设置默认字体和字号
                     //font-family不能呢随便改，在safari下fillchar会有解析问题
                     // xxj 设置默认字号为18号
-                    "body{margin:8px;font-family:sans-serif;font-size:18px !important;}" +
+                    "body{margin:8px;font-size:16px !important;}" +
                     //设置段落间距
                     "p{margin:5px 0;}</style>" +
                     (options.iframeCssUrl
