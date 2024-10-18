@@ -72,7 +72,8 @@ UE.plugins["defaultfilter"] = function () {
                     case "span":
                         if (browser.webkit && (val = node.getStyle("white-space"))) {
                             if (/nowrap|normal/.test(val)) {
-                                node.setStyle("white-space", "");
+                                // xxj 修复 white-space 属性被过滤掉
+                                node.setStyle("white-space", val);
                                 if (
                                     me.options.autoClearEmptyNode &&
                                     utils.isEmptyObject(node.attrs)
